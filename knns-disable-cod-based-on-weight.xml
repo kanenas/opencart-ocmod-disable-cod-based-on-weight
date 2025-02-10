@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<id><![CDATA[[OCMOD] Disable COD (Cash On Delivery) based on weight]]></id>
+	<name><![CDATA[Disable COD (Cash On Delivery) based on weight]]></name>
+	<code>knns-disable-cod-based-on-weight</code>
+	<version>0.1.0</version>
+	<author><![CDATA[<font color="#7F458C"><b>kanenas.net (aka Nikolas Branis)</b></font> - nbran@kanenas.net]]></author>
+	<link>https://kanenas.net/</link>
+	<file path="catalog/model/extension/payment/cod.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[public function getMethod($address, $total) {]]></search>
+			<add position="after"><![CDATA[
+		// kanenas: knns-disable-cod-based-on-weight (start) <<
+		//$this->log->write("weight: " . $this->cart->getWeight());
+		if ($this->cart->getWeight() > 13 ) return;
+		// kanenas: knns-disable-cod-based-on-weight (end) <<
+			]]></add>
+		</operation>
+	</file>
+</modification>
